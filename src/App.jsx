@@ -1,8 +1,9 @@
-
 import { useState } from "react"
+import ExpensesList from "./components/ExpensesList"
 import Header from "./components/Header"
-import newExpenseIcon from './img/nuevo-gasto.svg'
 import Modal from "./components/Modal"
+import { generateId } from "./helpers"
+import newExpenseIcon from './img/nuevo-gasto.svg'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
   const [isValidBudget, setIsValidBudget] = useState(false)
   const [modal, setModal] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
+  const [expenses, setExpenses] = useState([])
 
   const handleNewExpense = () => {
     setModal(true)
@@ -20,9 +22,15 @@ function App() {
     }, 500)
   }
 
+  const saveExpense = (expense) => {
+    expense.id = generateId()
+    expense.date = Date.now()
+    setExpenses([...expenses, expense])
+  }
   return (
-    <div>
+    <div className={modal ? 'fijar'  : ''}>
       <Header
+        expenses = {expenses}
         budget = {budget}
         setBudget = {setBudget}
         setIsValidBudget = {setIsValidBudget}
@@ -30,6 +38,12 @@ function App() {
         />
 
         {isValidBudget ? (
+          <>
+          <main>
+            <ExpensesList
+              expenses = {expenses}
+              />
+          </main>
           <div className="nuevo-gasto">
             <img 
                 src={newExpenseIcon} 
@@ -37,13 +51,14 @@ function App() {
                 onClick={handleNewExpense}
             />
           </div>
+          </>
         ) : null }
 
         {modal && <Modal 
                           setModal= {setModal}
                           animateModal = {animateModal}
                           setAnimateModal = {setAnimateModal}
-                          
+                          saveExpense = {saveExpense}
                           />}
         
     </div>

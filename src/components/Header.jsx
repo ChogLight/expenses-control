@@ -2,13 +2,16 @@
 import NewBudget from "./NewBudget"
 import BudgetControl from "./BudgetControl"
 
-function Header({budget, setBudget, isValidBudget, setIsValidBudget}) {
+function Header({budget, setBudget, isValidBudget, setIsValidBudget, expenses}) {
   return (
     <header>
         <h1>Expenses control</h1>
 
         {isValidBudget ? (
-          <BudgetControl budget = {budget}/>
+          <BudgetControl 
+            budget = {budget}
+            expenses = {expenses}
+          />
         ) :
           (
             <NewBudget
