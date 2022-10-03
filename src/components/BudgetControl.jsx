@@ -6,11 +6,11 @@ function BudgetControl({budget, expenses}) {
   const [spent, setSpent] = useState(0)
 
   useEffect(() => {
-    const totalExpense = expenses.reduce((total,expense) => expense.amount + total,0)
+    const totalExpense = expenses.reduce((total,expense) => Number(expense.amount) + total,0)
     const totalAvailable = budget - totalExpense
 
-    setSpent(totalExpense)
-    setAvailable(totalAvailable)
+    setSpent(Number(totalExpense))
+    setAvailable(Number(totalAvailable))
      
   },[expenses])
 
@@ -34,12 +34,12 @@ function BudgetControl({budget, expenses}) {
         </p>
 
         <p>
-            <span>Available: </span> {formatCurrency(Number(available))}
+            <span>Available: </span> {formatCurrency(available)}
              
         </p>
 
         <p>
-            <span>Spent: </span> {formatCurrency(Number(spent))}
+            <span>Spent: </span> {formatCurrency(spent)}
              
         </p>
       </div>
