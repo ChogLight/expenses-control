@@ -1,22 +1,41 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Message from './Message'
 import closeButton from '../img/cerrar.svg'
 
 
-function Modal({setModal, animateModal, setAnimateModal, saveExpense}) {
+function Modal({
+    setModal, 
+    animateModal,
+    setAnimateModal, 
+    saveExpense, 
+    editExpense,
+    setEditExpense}) {
 
 
     const [name, setName] = useState ('')
     const [amount, setAmount] = useState(0)
     const [type, setType] =useState('')
     const [message, setMessage] = useState('')
+    const [date, setDate] = useState('')
+    const [id,setId] = useState('')
 
+
+    useEffect(() => {
+        if(Object.keys(editExpense).length > 0){
+            setName(editExpense.name)
+            setAmount(editExpense.amount)
+            setType(editExpense.type)
+            setId(editExpense.id)
+            setDate(editExpense.date)
+        }
+    },[])
     const hideModal = () => {
         setAnimateModal(false)
         
         setTimeout(() => {
             setModal(false)
-        }, 500)
+            setEditExpense({})
+        }, 500) 
     }
 
     const handleSubmit = (e) => {
@@ -30,7 +49,7 @@ function Modal({setModal, animateModal, setAnimateModal, saveExpense}) {
 
             return
         }
-        saveExpense({name, amount, type})
+        saveExpense({name, amount, type, id, date})
         hideModal()
         setName('')
         setAmount(0)
@@ -52,7 +71,7 @@ function Modal({setModal, animateModal, setAnimateModal, saveExpense}) {
             className={`formulario ${animateModal ? "animar" : "cerrar"}`}
             onSubmit = {handleSubmit}
         >
-            <legend>New Expense</legend>
+            <legend>{Object.keys(editExpense).length > 0 ? 'Edit Expense' : 'New Expense'}</legend>
             {message && <Message type = 'error'>{message}</Message>}
 
             <div className='campo'>
@@ -100,7 +119,7 @@ function Modal({setModal, animateModal, setAnimateModal, saveExpense}) {
             </div>
             <input
                 type="submit"
-                value="Add expense"
+                value={Object.keys(editExpense).length > 0 ? 'Edit expense' : 'Add expense'}
                 />
         </form>
       

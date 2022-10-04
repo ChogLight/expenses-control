@@ -1,7 +1,7 @@
 
 import Expense from './Expense.jsx'
 
-function ExpensesList({expenses}) {
+function ExpensesList({expenses, setEditExpense, deleteExpense}) {
   return (
     <div className="contenedor Listado-gastos">
       <h2>{expenses.length ? 'Expenses' : 'There are no expenses yet'}</h2>
@@ -10,6 +10,8 @@ function ExpensesList({expenses}) {
         <Expense
             key = {expense.id}
             expense = {expense}
+            setEditExpense = {setEditExpense}
+            deleteExpense = {deleteExpense}
             />
       )}
     </div>
