@@ -56,6 +56,7 @@ function Expense({expense, setEditExpense, deleteExpense}) {
                 src = {iconsDictionary[type]}
                 alt = "Expense Icon"
                 draggable = "false"
+                className='expense-image'
                 />
             <div className="descripcion-gasto">
                 <p className="categoria">{type}</p>
