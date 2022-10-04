@@ -70,6 +70,7 @@ function Modal({
         <form 
             className={`formulario ${animateModal ? "animar" : "cerrar"}`}
             onSubmit = {handleSubmit}
+            autoComplete = "off"
         >
             <legend>{Object.keys(editExpense).length > 0 ? 'Edit Expense' : 'New Expense'}</legend>
             {message && <Message type = 'error'>{message}</Message>}
