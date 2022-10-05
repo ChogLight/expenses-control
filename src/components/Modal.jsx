@@ -13,7 +13,7 @@ function Modal({
 
 
     const [name, setName] = useState ('')
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState('')
     const [type, setType] =useState('')
     const [message, setMessage] = useState('')
     const [date, setDate] = useState('')

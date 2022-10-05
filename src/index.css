@@ -353,7 +353,7 @@ main {
         right: 1rem;
     }
     .nuevo-gasto img {
-        width: 1rem;
+        width: 4rem;
     }
 }
 
@@ -379,6 +379,7 @@ main {
     width: 3rem;
     height: 3rem;
     cursor:pointer;
+    z-index: 99999999;
 }
 .modal .cerrar-modal img {
     width: 100%;
