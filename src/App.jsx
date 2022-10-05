@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import ExpensesList from "./components/ExpensesList"
 import Header from "./components/Header"
 import Modal from "./components/Modal"
+import Filter from './components/Filter'
 import { generateId } from "./helpers"
 import newExpenseIcon from './img/nuevo-gasto.svg'
 
@@ -10,12 +11,27 @@ function App() {
 
   const [budget, setBudget] = useState(
     Number(localStorage.getItem('budget')) ?? 0)
+
   const [isValidBudget, setIsValidBudget] = useState(false)
+
   const [modal, setModal] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
+
   const [expenses, setExpenses] = useState(
     localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')): [])
+
   const [editExpense, setEditExpense] = useState({})
+
+  const [filter, setFilter] = useState('')
+  const [filteredExpenses, setFilteredExpenses] = useState([])
+
+  useEffect(() => {
+    if(filter) {
+      const filteredExpenses = expenses.filter(expense => expense.type ===
+        filter)
+        setFilteredExpenses(filteredExpenses)
+    }
+  }, [filter])
 
   useEffect(() => {
     if(Object.keys(editExpense).length){
@@ -80,17 +96,25 @@ function App() {
         expenses = {expenses}
         budget = {budget}
         setBudget = {setBudget}
+        setExpenses = {setExpenses}
         setIsValidBudget = {setIsValidBudget}
         isValidBudget = {isValidBudget}
+        setFilter = {setFilter}
         />
 
         {isValidBudget ? (
           <>
           <main>
+            <Filter
+              filter = {filter}
+              setFilter = {setFilter}
+            />
             <ExpensesList
               expenses = {expenses}
               setEditExpense = {setEditExpense}
               deleteExpense = {deleteExpense}
+              filteredExpenses = {filteredExpenses}
+              filter = {filter}
               />
           </main>
           <div className="nuevo-gasto">
