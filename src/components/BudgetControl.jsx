@@ -53,13 +53,12 @@ function BudgetControl({
         setIsValidBudget(false)
       }
     }
-
   return (
     <div className="contenedor-presupuesto contenedor sombra dos-columnas">
 
       <CircularProgressbar
         styles={buildStyles({
-          pathColor:'#3B82F6',
+          pathColor: percentage < 100 ? '#3B82F6' : '#C63037',
           trailColor:'#F5F5F5'
         })}
         value = {percentage}
@@ -86,7 +85,7 @@ function BudgetControl({
              
         </p>
 
-        <p>
+        <p className={`${available <0? 'negativo' : ""}`}>
             <span>Available: </span> {formatCurrency(available)}
              
         </p>
