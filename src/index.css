@@ -346,6 +346,17 @@ main {
     right: 5rem;
 }
 
+@media (max-width: 768px){
+    .nuevo-gasto {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    .nuevo-gasto img {
+        width: 1rem;
+    }
+}
+
 .nuevo-gasto img {
     width: 5rem;
 }
